@@ -5,7 +5,7 @@ require_once("./header.php");
 
 $os = $_GET['os'];
 
-$ordem = mysqli_query($mysqli, "SELECT * FROM ordem.ordem WHERE os=$os");
+$ordem = mysqli_query($mysqli, "SELECT * FROM ordem.ordem WHERE os='$os'");
 $ocorrencias = mysqli_query($mysqli, "SELECT * FROM ordem.ocorrencia");
 $ordem_ocorrencias = mysqli_query($mysqli, "SELECT * FROM ordem.ordem_ocorrencia");
 while ($res = mysqli_fetch_assoc($ordem)) {
@@ -16,7 +16,7 @@ while ($res = mysqli_fetch_assoc($ordem)) {
 }
 while ($res = mysqli_fetch_assoc($ocorrencias)) {
 	$idocorrencia = $res['id_ocorrencia'];
-	$desocorrencia = $res['ocorrencia'];
+	$ocorrencia = $res['ocorrencia'];
 }
 while ($res = mysqli_fetch_assoc($ordem_ocorrencias)) {
 	$fkidos = $res['fk_id_os'];
@@ -60,7 +60,7 @@ while ($res = mysqli_fetch_assoc($ordem_ocorrencias)) {
 							<select class="select-multiple" name="ocorrencias[]" multiple="multiple">
 							<?php
 							foreach ($ocorrencias as $option) { ?>
-									<option value="<?php echo $option['id_ocorrencia']; ?>" <?php in_array($option['id_ocorrencia'], $fkidocorrencias) ? 'selected' : 'b' ; ?>><?php echo $option['ocorrencia'] ?></option>
+									<option value="<?php echo $option['id_ocorrencia']; ?>" <?php foreach ($ordem_ocorrencias as $ordemocorrencia){if($option['id_ocorrencia'] == $ordemocorrencia['fk_id_ocorrencia'] and $ordemocorrencia['fk_id_os'] == $os){ echo 'selected';}else{ echo '';}};?>><?php echo $option['ocorrencia'];?></option>
 							<?php } ?>
 							</select>
 							</div>

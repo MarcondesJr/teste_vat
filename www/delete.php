@@ -6,7 +6,7 @@ include("./cnx.php");
 $id = $_GET['os'];
 
 //deleting the row from table
-$ordemxocorrencia = mysqli_query($mysqli, "DELETE FROM ordem.ordem_ocorrencia WHERE $id = ordem_ocorrencia.fk_id_os");
+$ordem_ocorrencia = mysqli_query($mysqli, "DELETE FROM ordem.ordem_ocorrencia WHERE $id = ordem_ocorrencia.fk_id_os");
 $ordem = mysqli_query($mysqli, "DELETE FROM ordem.ordem WHERE $id = ordem.os");
 
 //redirecting to the display page (index.php in our case)

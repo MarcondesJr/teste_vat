@@ -21,8 +21,9 @@
     
           //insert data to database	
           $ordem = mysqli_query($mysqli, "UPDATE ordem set nome='$nome', descricao_os='$descricao' WHERE os = '$os'");
+          $apagaOcorrencia = mysqli_query($mysqli, "DELETE FROM ordem.ordem_ocorrencia as oo WHERE $os = oo.fk_id_os");
           for ($i = 0; $i < count($idocorrencias); $i++) {
-            $ocorrencia = mysqli_query($mysqli, "UPDATE ordem_ocorrencia set fk_id_ocorrencia='$idocorrencias[$i]' WHERE '$os' = fk_id_os");
+            $ordem_ocorrencia = mysqli_query($mysqli, "INSERT INTO ordem.ordem_ocorrencia(fk_id_ocorrencia, fk_id_os) VALUES ('$idocorrencias[$i]','$os')");
           };
     
           header("Location:index.php");
