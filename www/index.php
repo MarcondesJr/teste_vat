@@ -74,7 +74,7 @@
                 <?php echo $res['ocorrencia']; ?>
             </td>
             <td>
-                <a href="view.php?os=<?php echo $res['os']; ?>">
+                <a href="visualizar.php?os=<?php echo $res['os']; ?>">
                     <button type="button" class="btn btn-outline-primary" href="">
                         <span class="material-symbols-outlined">
                             visibility

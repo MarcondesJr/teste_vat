@@ -9,6 +9,7 @@ require_once("./header.php");
 //selecting data associated with this particular id
 $ordem = mysqli_query($mysqli, "SELECT os, data_criacao, nome, descricao_os, id_ocorrencia, ocorrencia, fk_id_os, fk_id_ocorrencia FROM ordem.ordem, ordem.ocorrencia, ordem.ordem_ocorrencia WHERE fk_id_os = os AND fk_id_ocorrencia = id_ocorrencia");
 $optionocorrencias = mysqli_query($mysqli, "SELECT * FROM ordem.ocorrencia");
+$optionfkidocorrencia = mysqli_query($mysqli, "SELECT * FROM ordem.ordem_ocorrencia");
 while ($res = mysqli_fetch_array($ordem)) {
 	$os = $res['os'];
 	$data = $res['data_criacao'];
@@ -19,6 +20,8 @@ while ($res = mysqli_fetch_array($ordem)) {
 	$fkidos = $res['fk_id_os'];
 	$fkidocorrencia = $res['fk_id_ocorrencia'];
 }
+
+print_r($optionfkidocorrencia);
 ?>
 
 <body>
@@ -55,10 +58,10 @@ while ($res = mysqli_fetch_array($ordem)) {
 							<select class="select-multiple" name="ocorrencias[]" multiple="multiple">
 							<?php
 							foreach ($optionocorrencias as $option) { 
-								if($option['id_ocorrencia'] == $fkidocorrencia){ ?>
-									<option value="<?php echo $option['id_ocorrencia']; ?>"><?php echo $option['ocorrencia'] ?></option>
+								if (in_array($option['id_ocorrencia'], $optionfkidocorrencia)) { ?>
+									<option value="<?php echo $option['id_ocorrencia']; ?>" selected><?php echo $option['ocorrencia'] ?></option>
 								<?php }else{ ?>
-									<option value="<?php echo $option['id_ocorrencia'] ?>"><?php echo $option['ocorrencia'] ?></option>
+									<option value="<?php echo $option['id_ocorrencia']; ?>"><?php echo $option['ocorrencia'] ?></option>
 							<?php } } ?>
 							</select>
 							</div>
