@@ -57,9 +57,9 @@
         </thead>
         <tbody>
         <?php
-        if ($ordem->num_rows == 0) { ?>
+        if ($ordemTable->num_rows == 0) { ?>
             <td colspan="3">Não encontrado nenhum resultado</td>
-        <?php } else { while ($res = mysqli_fetch_assoc($ordem)) { ?>
+        <?php } else { while ($res = mysqli_fetch_assoc($ordemTable)) { ?>
             <tr>
             <td>
                 <?php echo $res['os']; ?>
@@ -71,7 +71,11 @@
                 <?php echo $res['nome']; ?>
             </td>
             <td>
-                <?php echo $res['ocorrencia']; ?>
+                <?php foreach ($ocorrencia as $teste) {
+                    if ($teste['fk_id_os'] == $res['os']) {
+                        echo $teste['ocorrencia'] . '<br>';
+                    }
+                }?>
             </td>
             <td>
                 <a href="visualizar.php?os=<?php echo $res['os']; ?>">

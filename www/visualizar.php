@@ -1,11 +1,11 @@
 <?php
 require_once("./cnx.php");
 require_once("./header.php");
+$os = $_GET['os'];
 $ocorrencias[] = null;
 $ordem = mysqli_query($mysqli, "SELECT os, data_criacao, nome, descricao_os, id_ocorrencia, ocorrencia, fk_id_os, fk_id_ocorrencia FROM ordem.ordem, ordem.ocorrencia, ordem.ordem_ocorrencia WHERE fk_id_os = os AND fk_id_ocorrencia = id_ocorrencia");
 $optionocorrencias = mysqli_query($mysqli, "SELECT * FROM ordem.ocorrencia");
 while ($res = mysqli_fetch_array($ordem)) {
-	$os = $res['os'];
 	$data = $res['data_criacao'];
 	$nome = $res['nome'];
 	$descricao = $res['descricao_os'];
@@ -37,7 +37,7 @@ while ($res = mysqli_fetch_array($ordem)) {
 			<div class="card-body conteiner-fluid">
 				<fieldset>
 					<legend>Visualizar ordem de serviços - #<?php echo $os; ?></legend>
-					<table width="25%" border="0">
+					<table width="25%">
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="ios">O.S. - #<?php echo $os; ?></label>
@@ -59,7 +59,7 @@ while ($res = mysqli_fetch_array($ordem)) {
                                 <br>
 							</div>
 							<div class="form-group col-md-6">
-							<label for="ocorrencia" id="iocorrencia">Selecione Ocorrências: <br><?php foreach ($ordem as $option){ echo '- ' . $option['ocorrencia'].'<br>';}?></label>
+							<label for="ocorrencia" id="iocorrencia">Selecione Ocorrências: <br><?php foreach ($ordem as $option){ if ($option['fk_id_os'] == $os) { echo '- ' . $option['ocorrencia'].'<br>';}}?></label>
 						</div>
 						<br><br>
 				</fieldset>
